@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.thinkgem.jeesite.modules.shiyan.dao.Demo-userDao">
+    
+	<sql id="demo-userColumns">
+		a.id AS "id",
+		a.username AS "username",
+		a.pwd AS "pwd",
+		a.ulr AS "ulr"
+	</sql>
+	
+	<sql id="demo-userJoins">
+	</sql>
+    
+	<select id="get" resultType="Demo-user">
+		SELECT 
+			<include refid="demo-userColumns"/>
+		FROM demo-user a
+		<include refid="demo-userJoins"/>
+		WHERE a.id = #{id}
+	</select>
+	
+	<select id="findList" resultType="Demo-user">
+		SELECT 
+			<include refid="demo-userColumns"/>
+		FROM demo-user a
+		<include refid="demo-userJoins"/>
+		<where>
+			
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="findAllList" resultType="Demo-user">
+		SELECT 
+			<include refid="demo-userColumns"/>
+		FROM demo-user a
+		<include refid="demo-userJoins"/>
+		<where>
+			
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+			</otherwise>
+		</choose>
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO demo-user(
+			id,
+			username,
+			pwd,
+			ulr
+		) VALUES (
+			#{id},
+			#{username},
+			#{pwd},
+			#{ulr}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE demo-user SET 	
+			username = #{username},
+			pwd = #{pwd},
+			ulr = #{ulr}
+		WHERE id = #{id}
+	</update>
+	
+	<update id="delete">
+		DELETE FROM demo-user
+		WHERE id = #{id}
+	</update>
+	
+</mapper>
